@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Your Name - Profile</title>
+    <script src="script/jquery.js"></script>
+    <script src="js/import_css.js"></script>
+    <script src="js/user_profile.js"></script>
+    <script src="template/import_navbar.js"></script>
+  </head>
+  <body>
+    <h1>Your profile</h1>
+    <div class="profile-info">
+      <div id="infos"></div>
+      <p id="check" style="color: #eee !important;" class="text--center"></p>
+      <a href="/login" id="aa"></a>
+      <div>
+        <button onclick="location.href='/upuser'">Modifier mon compte</button>
+        <button onclick="location.href='/deluser'">Supprimer mon compte</button>
+        <button onclick="location.href='/logout'">Se déconnecter</button>
+      </div>
+    </div>
+  </body>
+</html>
