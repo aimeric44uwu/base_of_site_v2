@@ -72,11 +72,11 @@ function modifaccount() {
             document.getElementById("check").style.color = "red";
             document.getElementById("check").innerHTML = response.responseJSON.message;
         } else {
-                document.getElementById("check").style.color = "green";
-                document.getElementById("check").innerHTML = response.responseJSON.message;
-                setTimeout (() => {
-                    document.getElementById("aa").click();
-                }, 3000);
+            document.getElementById("check").style.color = "green";
+            document.getElementById("check").innerHTML = response.message;
+            setTimeout (() => {
+                document.getElementById("aa").click();
+            }, 3000);
         }
         setTimeout(() => {
             document.getElementById("check").innerHTML = "";
@@ -162,13 +162,13 @@ function register()
             if (response.responseJSON.status == "error" || response.responseJSON.status == "Internalerror") {
                 document.getElementById("register_check").style.color = "red";
                 document.getElementById("register_check").innerHTML = response.responseJSON.message;
-            } else {
-                document.getElementById("register_check").style.color = "green";
-                document.getElementById("register_check").innerHTML = response.message;
-                setTimeout (() => {
-                    document.getElementById("register_redirect").click();
-                }, 3000);
             }
+        } else {
+            document.getElementById("register_check").style.color = "green";
+            document.getElementById("register_check").innerHTML = response.message;
+            setTimeout (() => {
+                document.getElementById("register_redirect").click();
+            }, 3000);
         }
         setTimeout(() => {
             document.getElementById("register_check").innerHTML = "";

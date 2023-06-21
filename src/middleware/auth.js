@@ -60,7 +60,6 @@ async function checkAuthenticated(req, res, next) {
         console.log(error);
         return clear_cookies_inservererr(req, res);
     }
-    clear_cookies_inservererr(req, res);
 }
 
 module.exports = checkAuthenticated;

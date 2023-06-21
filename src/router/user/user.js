@@ -55,28 +55,28 @@ exports.register = async (req, res) => {
                         Person.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
                             if (Person.link_session_id == Session.signed_id)
                                 return res.status(200).cookie('token', jwt.sign({ _id: Person.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', Person.firstName).send({ "status": "success", "message": "Vous vous êtes enregistré avec succès, redirection ..." });
-                            else
+                            else if (Person != null && Person != undefined && Person != 'NULL')
                                 return redirects.register_inservererr(req, res);
                         }).catch(function (err) {
-                            console.log(err);
+                            console.log(" 6 -> " + err);
                             return redirects.register_inservererr(req, res);
                         });
                     }).catch(function (err) {
-                        console.log(err);
+                        console.log(" 5 -> " + err);
                         return redirects.register_inservererr(req, res);
                     });
                 }).catch(function (err) {
-                    console.log(err);
+                    console.log(" 4 -> " + err);
                     return redirects.register_inservererr(req, res);
                 });
             }
         }).catch(function (err) {
-            console.log(err);
+            console.log(" 3 -> " + err);
             return redirects.register_inservererr(req, res);
         });
     } catch (error) {
-        console.log(error);
-        redirects.login_inservererr(req, res);
+        console.log(" 2 -> " + error);
+        return redirects.register_inservererr(req, res);
     }
 }
 
@@ -107,14 +107,14 @@ exports.login = async (req, res) => {
                     user.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
                         if (user.link_session_id == Session.signed_id)
                             return res.status(200).cookie('token', jwt.sign({ _id: user.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', user.firstName).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." });
-                        else
+                        else if (newuser != null && newuser != undefined && newuser != 'NULL')
                             return redirects.invalid_session(req, res);
                     }).catch(function (err) {
-                        console.log(err);
+                        console.log(" 4-> " + err);
                         return redirects.login_inservererr(req, res);
                     });
                 }).catch(function (err) {
-                    console.log(err);
+                    console.log(" 3-> " + err);
                     return redirects.login_inservererr(req, res);
                 });
             } else {
@@ -124,11 +124,11 @@ exports.login = async (req, res) => {
             return redirects.incorrect_email(req, res);
         }
         }).catch(function (err) {
-            console.log(err);
+            console.log(" 2-> " + err);
             return redirects.login_inservererr(req, res);
         });
     } catch (error) {
-        console.log(error);
+        console.log(" 1-> " + error);
         redirects.login_inservererr(req, res);
     }
 }
@@ -138,7 +138,6 @@ exports.user_info = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-    console.log(req.user)
     if (req.user != 'NULL' && req.user != null && req.user != undefined) {
         Session.deleteOne({ signed_id: req.user.link_session_id }).then(function (session, err) {
             if (session) {

@@ -3,6 +3,7 @@
   <head>
     <title>Your Name - Profile</title>
     <script src="script/jquery.js"></script>
+    <link rel="stylesheet" href="css/dark_mode.css" id="default_css">
     <script src="js/import_css.js"></script>
     <script src="js/user_profile.js"></script>
     <script src="template/import_navbar.js"></script>
@@ -10,7 +11,30 @@
   <body>
     <h1>Your profile</h1>
     <div class="profile-info">
-      <div id="infos"></div>
+      <div id="infos">
+        <ul>
+          <li>
+              <label for="name">Prénom :</label>
+              <span id="name">chargement...</span>
+          </li>
+          <li>
+              <label for="first-name">Nom :</label>
+              <span id="first-name">chargement...</span>
+          </li>
+          <li>
+              <label for="email">Email :</label>
+              <span id="email">chargement...</span>
+          </li>
+          <li>
+              <label for="phone_number">Numéro de téléphone :</label>
+              <span id="phone_number">chargement...</span>
+          </li>
+          <li>
+              <label for="adress">adresse :</label>
+              <span id="adress">chargement...</span>
+          </li>
+      </ul>
+      </div>
       <p id="check" style="color: #eee !important;" class="text--center"></p>
       <a href="/login" id="aa"></a>
       <div>

@@ -34,11 +34,11 @@ $( document ).ready(async function() {
           document.getElementById("navbar").style.marginBottom = "10px";
           document.getElementById("navbar").style.marginTop = "30px";
           html += `
-          <li style="margin-left: -525px;margin-right: 25px">Hi <b>${response.data.name}</b></li>
+          <li style="margin-left: -525px;margin-right: 25px">Bonjour <b>${response.data.name}</b></li>
           <li class="dropdown">
             <a>Menu</a>
             <div class="dropdown-menu">
-                <a href="/profile">my profile</a>
+                <a href="/profile">Mon compte</a>
                 <a href="/upuser">modify account</a>
                 <a href="/deluser">delete an account</a>
             </div>
