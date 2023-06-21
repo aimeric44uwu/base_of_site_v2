@@ -16,7 +16,6 @@ sessionSchema = new Schema( {
     },
     signed_id: {
         type: String,
-        unique: true,
         lowercase: true,
     },
     connexionIp: {
@@ -32,10 +31,6 @@ sessionSchema = new Schema( {
 		default: Date.now
 	}
 }),
-
-sessionSchema.methods.comparePassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
-};
 
 Session = mongoose.model('session', sessionSchema);
 

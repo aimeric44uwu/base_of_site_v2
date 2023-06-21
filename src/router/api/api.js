@@ -19,7 +19,7 @@ exports.user_profile_info_api = async (req, res) => {
 
 exports.navbar_info_api = async (req, res) => {
     if (!req.user || req.user == null) {
-        return res.send({ "status": "notloggedin", "message": "vous n'êtes pas connécté", "data": null});
+        return res.send({ "status": "notloggedin", "message": "vous n'êtes pas connecté", "data": null});
     } else {
         return res.send({ "status": "loggedin", "message": "vous êtes connéctés", "data": {"name": req.user.firstName, "lastname": req.user.lastName}});
     }

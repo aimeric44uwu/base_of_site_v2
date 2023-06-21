@@ -9,6 +9,9 @@ userSchema = new Schema( {
         unique: true,
         trim: true
     },
+    link_session_id: {
+        type: String,
+    },
     email: {
         type: String,
         unique: [true, "an account already exist on this email!"],

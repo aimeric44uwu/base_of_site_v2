@@ -1,8 +1,11 @@
 const User = require('../../database/models/users')
+const Session = require('../../database/models/session')
 const checkAuthenticated = require("../../middleware/auth.js");
+const redirects = require("../../middleware/redirect.js");
+
+const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
 const e = require('express')
-const jwt = require('jsonwebtoken')
 const crypto = require('crypto');
 
 var hour = 3600000;
@@ -19,11 +22,11 @@ exports.register = async (req, res) => {
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
         if (!req.body.email || !req.body.password || !req.body.adress || !req.body.phonenumber || !req.body.firstName || !req.body.lastName) {
-            return res.status(400).cookie('token', "NULL").cookie('name', 'NULL').send({ "status": "error", "message": "Identifiants invalides" });
+            return redirects.missing_infos(req, res);
         }
         User.findOne({ email: req.body.email }).then(function (user, err) {
             if (user) {
-                return res.status(400).cookie('token', "NULL").cookie('name', 'NULL').send({ "status": "error", "message": "l'adresse mail utilisé correspond déjà à un compte" });
+                return redirects.email_already_exist(req, res);
             } else {
                 const new_unique_id = crypto.randomUUID();
                 const newPerson = new User({
@@ -39,20 +42,41 @@ exports.register = async (req, res) => {
                     LastModificationIp: ip,
                 });
                 newPerson.save().then(function (Person) {
-                    return res.status(200).cookie('token', jwt.sign({ _id: Person.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', Person.firstName).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." });
+                    const uuid_session_id = crypto.randomUUID()
+                    const unique_link_session_id = crypto.randomUUID()
+                    const newSession = new Session({
+                        unique_session_id: uuid_session_id,
+                        signed_id: unique_link_session_id,
+                        connexionIp: ip,
+                        expire: Date.now() + month,
+                    });
+                    newSession.save().then(function (Session) {
+                        Person.link_session_id = unique_link_session_id
+                        Person.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
+                            if (Person.link_session_id == Session.signed_id)
+                                return res.status(200).cookie('token', jwt.sign({ _id: Person.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', Person.firstName).send({ "status": "success", "message": "Vous vous êtes enregistré avec succès, redirection ..." });
+                            else
+                                return redirects.register_inservererr(req, res);
+                        }).catch(function (err) {
+                            console.log(err);
+                            return redirects.register_inservererr(req, res);
+                        });
+                    }).catch(function (err) {
+                        console.log(err);
+                        return redirects.register_inservererr(req, res);
+                    });
                 }).catch(function (err) {
                     console.log(err);
-                    res.status(400).cookie('token', "NULL").cookie('name', 'NULL').send({ "status": "error", "message": "informations manquantes" });
-
+                    return redirects.register_inservererr(req, res);
                 });
             }
         }).catch(function (err) {
-            res.status(500).send({ "status": "Internalerror", "message": "Erreur, merci de réessayer plus tard" });
-            console.log(error);
+            console.log(err);
+            return redirects.register_inservererr(req, res);
         });
     } catch (error) {
-        res.status(500).send({ "status": "Internalerror", "message": "Erreur, merci de réessayer plus tard" });
         console.log(error);
+        redirects.login_inservererr(req, res);
     }
 }
 
@@ -61,28 +85,51 @@ exports.login = async (req, res) => {
         const elem = req.body
         const email = elem.email
         const password = elem.password
+        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
         if (!email || !password) {
-            return res.status(400).cookie('token', "NULL").cookie('name', 'NULL').send({ "status": "error", "message": "Identifiants invalides" });
+            return redirects.missing_infos(req, res);
         }
         User.findOne({ email: req.body.email }).then(function (user, err) {
         if (user) {
             const result = req.body.password === user.password;
             if (user.comparePassword(req.body.password)) {
-                return res.status(200).cookie('token', jwt.sign({ _id: user.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', user.firstName).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." });
+                const uuid_session_id = crypto.randomUUID()
+                const unique_link_session_id = crypto.randomUUID()
+                const newSession = new Session({
+                    unique_session_id: uuid_session_id,
+                    signed_id: unique_link_session_id,
+                    connexionIp: ip,
+                    expire: Date.now() + month,
+                });
+                newSession.save().then(function (Session) {
+                user.link_session_id = unique_link_session_id
+                    user.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
+                        if (user.link_session_id == Session.signed_id)
+                            return res.status(200).cookie('token', jwt.sign({ _id: user.unique_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), {maxAge : month}).cookie('name', user.firstName).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." });
+                        else
+                            return redirects.invalid_session(req, res);
+                    }).catch(function (err) {
+                        console.log(err);
+                        return redirects.login_inservererr(req, res);
+                    });
+                }).catch(function (err) {
+                    console.log(err);
+                    return redirects.login_inservererr(req, res);
+                });
             } else {
-                return res.status(400).send({ "status": "error", "message": "Mot de passe incorrect" });
+                return redirects.incorrect_password(req, res);
             }
         } else {
-            return res.status(400).send({ "status": "error", "message": "l'utilisateur n'existe pas" });
+            return redirects.incorrect_email(req, res);
         }
         }).catch(function (err) {
-            res.status(500).send({ "status": "Internalerror", "message": "Erreur, merci de réessayer plus tard" });
             console.log(err);
+            return redirects.login_inservererr(req, res);
         });
     } catch (error) {
-        res.status(500).send({ "status": "Internalerror", "message": "Erreur, merci de réessayer plus tard" });
         console.log(error);
+        redirects.login_inservererr(req, res);
     }
 }
 
@@ -91,5 +138,19 @@ exports.user_info = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-    return res.status(200).cookie('token', "NULL").cookie('name', 'NULL').redirect('/');
+    console.log(req.user)
+    if (req.user != 'NULL' && req.user != null && req.user != undefined) {
+        Session.deleteOne({ signed_id: req.user.link_session_id }).then(function (session, err) {
+            if (session) {
+                return redirects.logout_success(req, res);
+            } else {
+                console.log(err);
+                return redirects.logout_error_occured(req, res);
+            }
+        }).catch(function (err) {
+            console.log(err);
+        });
+    } else {
+        return redirects.logout_success(req, res);
+    }
 }
