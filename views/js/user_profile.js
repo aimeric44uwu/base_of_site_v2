@@ -6,7 +6,7 @@ $( document ).ready(function() {
         method: 'GET',
         url: "/user_profile_info_api",
         headers: {
-            "token":mytoken,
+            "token":mytoken
         },
         dataType: "json",
         contentType: "application/json; charset=utf-8",

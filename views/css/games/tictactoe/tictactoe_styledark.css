@@ -1,0 +1,21 @@
+body {
+    background-color: #292929 !important;
+}
+
+button {
+    background-color: #fff;
+    color: #000000;
+}
+
+button:hover {
+    background-color: #a7a7a7;
+}
+
+.game_element {
+    background-color: #393939;
+}
+
+.game_info_text {
+    color: #fff;
+    font-size: 1.5rem;
+}

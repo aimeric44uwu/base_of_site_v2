@@ -42,3 +42,23 @@ exports.missing_infos = (req, res) => {
 exports.email_already_exist = (req, res) => {
     return res.status(400).send({ "status": "error", "message": "L'adresse mail est déjà utilisé pour un autre compte" });
 }
+
+exports.error_while_leaving_room = (req, res) => {
+    return res.status(500).send({ "status": "internerror", "message": "une erreur est survenue lors de la sortie de la salle"});
+}
+
+exports.error_while_deleting_room = (req, res) => {
+    return res.status(500).send({ "status": "internerror", "message": "une erreur est survenue lors de la suppression de la salle"});
+}
+
+exports.not_your_room = (req, res) => {
+    return res.status(400).send({ "status": "error", "message": "Cette salle n'est pas la votre, redirection..."});
+}
+
+exports.room_not_found = (req, res) => {
+    return res.status(400).send({ "status": "error", "message": "La salle que vous essayez de supprimer n'existe pas, redirection..."});
+}
+
+exports.error_while_listing_rooms = (req, res) => {
+    return res.status(500).send({ "status": "internerror", "message": "une erreur est survenue lors de la récupération des salles"});
+}

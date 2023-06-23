@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/public'));
 require('./src/router/user/user.query')(app);
 require('./src/router/api/api.query')(app);
 require('./src/views/views.query')(app);
+require('./src/router/games/games.query')(app);
 
 app.get("*", function(req, res) {
   res.redirect("/404");
