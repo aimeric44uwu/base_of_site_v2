@@ -12,7 +12,7 @@ async function checkAuthenticated(req, res, next) {
         if (!session_token || session_token == null || session_token == undefined || session_token == "null")
             return clear_cookies(req, res);
         try {
-            session_decoded = jwt.verify(session_token, 'RESTFULAPIs');
+            session_decoded = jwt.verify(session_token, process.env.SECRET);
         } catch (err) {
             return clear_cookies(req, res);
         }

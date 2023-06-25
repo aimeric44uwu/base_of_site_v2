@@ -10,7 +10,7 @@ async function get_user_from_session(req, res, next) {
             return next();
         }
         try {
-            decoded = jwt.verify(session, 'RESTFULAPIs');
+            decoded = jwt.verify(session, process.env.SECRET);
         } catch (err) {
             req.user = null;
             return next();

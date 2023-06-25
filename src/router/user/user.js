@@ -35,14 +35,14 @@ exports.register = async (req, res) => {
                         const new_unique_id = crypto.randomUUID();
                         const newPerson = new User({
                             unique_id: new_unique_id,
-                            //                    phonenumber: req.body.phonenumber,
                             email: req.body.email,
                             username: req.body.username,
                             role: "normal",
-                            //                    firstName: req.body.firstName,
-                            //                    lastName: req.body.lastName,
                             password: req.body.password,
                             //                    adress: req.body.adress,
+                            //                    phonenumber: req.body.phonenumber,
+                            //                    firstName: req.body.firstName,
+                            //                    lastName: req.body.lastName,
                             creationIp: ip,
                             LastModificationIp: ip,
                         });
@@ -60,7 +60,7 @@ exports.register = async (req, res) => {
                                 Person.link_session_id = unique_link_session_id
                                 Person.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
                                     if (Person.link_session_id == Session.signed_id)
-                                        return res.status(200).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), { maxAge: month }).cookie('name', Person.username).send({ "status": "success", "message": "Vous vous êtes enregistré avec succès, redirection ..." }); //.cookie('token', jwt.sign({ _id: Person.unique_id }, 'RESTFULAPIs'), {maxAge : month})
+                                        return res.status(200).cookie('session', jwt.sign({ session_id: uuid_session_id }, process.env.SECRET), { maxAge: month }).cookie('name', Person.username).send({ "status": "success", "message": "Vous vous êtes enregistré avec succès, redirection ..." }); //.cookie('token', jwt.sign({ _id: Person.unique_id }, 'RESTFULAPIs'), {maxAge : month})
                                     else if (Person && Person != null && Person != undefined && Person != "null")
                                         return redirects.register_inservererr(req, res);
                                 }).catch(function (err) {
@@ -119,7 +119,7 @@ exports.login = async (req, res) => {
                             user.link_session_id = unique_link_session_id
                             user.updateOne({ link_session_id: unique_link_session_id }).then(function (newuser) {
                                 if (user.link_session_id == Session.signed_id)
-                                    return res.status(200).cookie('session', jwt.sign({ session_id: uuid_session_id }, 'RESTFULAPIs'), { maxAge: month }).cookie('name', user.username).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." }); //.cookie('token', jwt.sign({ _id: user.unique_id }, 'RESTFULAPIs'), {maxAge : month})
+                                    return res.status(200).cookie('session', jwt.sign({ session_id: uuid_session_id }, process.env.SECRET), { maxAge: month }).cookie('name', user.username).send({ "status": "success", "message": "Vous vous êtes connecté avec succès, redirection ..." }); //.cookie('token', jwt.sign({ _id: user.unique_id }, 'RESTFULAPIs'), {maxAge : month})
                                 else if (newuser && newuser != null && newuser != undefined && newuser != "null")
                                     return redirects.invalid_session(req, res);
                             }).catch(function (err) {

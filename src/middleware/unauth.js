@@ -11,7 +11,7 @@ async function checkUnAuthenticated(req, res, next) {
         if (session_token && session_token != null && session_token != undefined && session_token != "null") {
             var session_decoded = null;
             try {
-                session_decoded = jwt.verify(session_token, 'RESTFULAPIs');
+                session_decoded = jwt.verify(session_token, process.env.SECRET);
             } catch (err) {
                 return clear_cookies(req, res);
             }
