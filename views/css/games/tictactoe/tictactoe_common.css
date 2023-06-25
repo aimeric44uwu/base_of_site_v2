@@ -1,9 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .top_button {
-    padding: 50px;
+  padding: 50px;
 }
 
 .game_element {
@@ -14,36 +14,172 @@ body {
 }
 
 button {
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 5px !important;
-    border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px !important;
+  border: none;
 }
 
 .game_info_text {
-    margin-top: 30px;
-    clear: both;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
+  margin-top: 30px;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 ul {
 
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-  }
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
 
-  li {
-    display: inline-block;
-    margin-top: 10px;
-  }
+li {
+  display: inline-block;
+  margin-top: 10px;
+}
 
-  .game_elem_button {
-    position: relative;
-    top: -20px;
-    margin-left: 100px;
-  }
+.game_elem_button {
+  position: relative;
+  top: -20px;
+  margin-left: 100px;
+}
+
+.vertical-bar {
+  height: 760px;
+  width: 10px;
+  position: fixed;
+  left: 42.8%;
+  top: 130px;
+  border-radius: 10px;
+}
+
+.vertical-bar:nth-child(1) {
+  left: 58%;
+}
+
+.horizontal-bar {
+  height: 10px;
+  width: 48%;
+  position: fixed;
+  left: 27%;
+  top: 380px;
+  border-radius: 10px;
+}
+
+.horizontal-bar:nth-child(4) {
+  top: 630px;
+}
+
+.cross-two {
+  margin-left: 75px;
+
+  display: absolute;
+  position: absolute;
+  height: 150px;
+  width: 10px;
+  border-radius: 10px;
+  transform: rotate(-45deg);
+
+}
+
+.cross-one {
+  margin-left: 75px;
+  display: absolute;
+  position: absolute;
+  height: 150px;
+  width: 10px;
+  border-radius: 10px;
+  transform: rotate(45deg);
+}
+
+.circle-one {
+  position: fixed;
+  display: absolute;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.circle-two {
+  position: fixed;
+  display: absolute;
+  margin-left: 10px;
+  margin-top: 10px;
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+
+.possible_position {
+  position: fixed;
+  margin-top: 5px;
+  margin-left: 5px;
+
+}
+
+.hoover-position {
+  height: 230px;
+  width: 230px;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+
+
+
+.possible_position:nth-child(1) {
+  left: 500px;
+  top: 175px;
+}
+
+.possible_position:nth-child(2) {
+  left: 750px;
+  top: 175px;
+}
+
+.possible_position:nth-child(3) {
+  left: 1000px;
+  top: 175px;
+}
+
+.possible_position:nth-child(4) {
+  left: 500px;
+  top: 425px;
+}
+
+.possible_position:nth-child(5) {
+  left: 750px;
+  top: 425px;
+}
+
+.possible_position:nth-child(6) {
+  left: 1000px;
+  top: 425px;
+}
+
+.possible_position:nth-child(7) {
+  left: 500px;
+  top: 675px;
+}
+
+.possible_position:nth-child(8) {
+  left: 750px;
+  top: 675px;
+}
+
+.possible_position:nth-child(9) {
+  left: 1000px;
+  top: 675px;
+}
+
+.placed-element {
+  margin-left: -35px;
+  margin-top: -35px;
+  padding-left: 35px;
+  padding-top: 35px;
+  width: 230px;
+  height: 230px;
+}

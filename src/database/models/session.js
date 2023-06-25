@@ -18,6 +18,9 @@ sessionSchema = new Schema( {
         type: String,
         lowercase: true,
     },
+    user_signed_id: {
+        type: String,
+    },
     connexionIp: {
         type: String,
         unique: false,

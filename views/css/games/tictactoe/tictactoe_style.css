@@ -20,3 +20,43 @@ button:hover {
     color: #000;
     font-size: 1.5rem;
 }
+
+.vertical-bar {
+    background-color: #000;
+}
+
+.horizontal-bar {
+    background-color: #000;
+}
+
+.cross-two {
+    background-color: #000;
+}
+
+.cross-one {
+    background-color: #000;
+}
+
+.circle-two {
+    background-color: #ddd;
+}
+
+.placed-element .circle-two {
+    background-color: #f2f2f2 !important;
+}
+
+.circle-one {
+    background-color: #000;
+}
+
+.hoover-position {
+    background-color: #ddd;
+}
+
+.hoover-position:hover {
+    background-color: #ccc
+}
+
+.placed-element {
+    background-color: #f2f2f2;
+}

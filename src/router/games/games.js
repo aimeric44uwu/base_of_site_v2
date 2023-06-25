@@ -29,7 +29,7 @@ exports.createtictatoe = async (req, res) => {
                 unique_session_id: new_unique_id,
                 public_session_id: public_session_id,
                 player1: req.user._id,
-                player1name: req.user.firstName,
+                player1name: req.user.username,
                 player2: null,
                 player2name: null,
                 playerturn: req.user._id,
@@ -79,7 +79,7 @@ exports.joinroomtictatoe = async (req, res) => {
                     });
             } else if (data.player2 == null && data.player1 != userid && data.player1 != null) {
                 TicTacToeroom.updateOne({ unique_session_id: data.unique_session_id },
-                    { $set: { player2: userid, player2name: req.user.firstName, nbplayer: 2, expire: Date.now() + hour } }).then((data2, err) => {
+                    { $set: { player2: userid, player2name: req.user.username, nbplayer: 2, expire: Date.now() + hour } }).then((data2, err) => {
                         if (data2) {
                             return res.status(200).render('games/tictactoe/tictactoe_room.ejs');
                         } else {

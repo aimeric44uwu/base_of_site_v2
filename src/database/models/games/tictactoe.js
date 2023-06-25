@@ -35,6 +35,15 @@ tictactoeroomSchema = new Schema( {
     nbplayer : {
         type: Number,
     },
+    moves : {
+        type: Array,
+    },
+    ispublic : {
+        type: Boolean,
+    },
+    roompassword : {
+        type: String,
+    },
     expire: {
 		type: Date,
 		default: Date.now + hour

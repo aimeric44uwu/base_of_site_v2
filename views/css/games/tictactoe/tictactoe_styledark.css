@@ -19,3 +19,43 @@ button:hover {
     color: #fff;
     font-size: 1.5rem;
 }
+
+.vertical-bar {
+    background-color: #fff;
+}
+
+.horizontal-bar {
+    background-color: #fff;
+}
+
+.cross-two {
+    background-color: #fff;
+}
+
+.cross-one {
+    background-color: #fff;
+}
+
+.circle-two {
+    background-color: #393939;
+}
+
+.placed-element .circle-two {
+    background-color: #292929 !important;
+}
+
+.circle-one {
+    background-color: #fff;
+}
+
+.hoover-position {
+    background-color: #393939;
+}
+
+.hoover-position:hover {
+    background-color: #424242
+}
+
+.placed-element {
+    background-color: #292929;
+}

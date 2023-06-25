@@ -30,14 +30,20 @@ userSchema = new Schema( {
         enum: ["normal", "admin"],
         required: [true, "Please specify user role"]
     },
-    phonenumber: {
+    username: {
         type: String,
-        required: 'Your phone number is required',
+        unique: [true, "an account already exist on this username!"],
+        maxlength: [100, "username can't be more than 100 characters"],
+        required: [true, "username is required"],
     },
-    adress: {
-        type: String,
-        required: 'Your adress is required',
-    },
+//    phonenumber: {
+//        type: String,
+//        required: 'Your phone number is required',
+//    },
+//    adress: {
+//        type: String,
+//        required: 'Your adress is required',
+//    },
     password: {
         type: String,
         required: 'Your password is required',
@@ -49,17 +55,16 @@ userSchema = new Schema( {
         default: ""
 
     },
-    firstName: {
-        type: String,
-        required: 'First Name is required',
-        max: 100
-    },
-
-    lastName: {
-        type: String,
-        required: 'Last Name is required',
-        max: 100
-    },
+//    firstName: {
+//        type: String,
+//        required: 'First Name is required',
+//        max: 100
+//    },
+//    lastName: {
+//        type: String,
+//        required: 'Last Name is required',
+//        max: 100
+//    },
     creationIp: {
         type: String,
     },

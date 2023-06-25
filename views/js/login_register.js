@@ -47,12 +47,13 @@ function modifaccount() {
     let jsondata = `
     {
     "email": "${document.getElementById("register_email").value}",
+    "username": "${document.getElementById("register_username").value}",
     "password": "${document.getElementById("register_password").value}",
-    "adress": "${document.getElementById("register_adress").value}",
-    "phonenumber": "${document.getElementById("register_phonenumber").value}",
-    "firstname": "${document.getElementById("register_name").value}",
-    "lastname": "${document.getElementById("register_lastname").value}"
     }`;
+//    "adress": "${document.getElementById("register_adress").value}",
+//    "phonenumber": "${document.getElementById("register_phonenumber").value}",
+//    "firstname": "${document.getElementById("register_name").value}",
+//    "lastname": "${document.getElementById("register_lastname").value}"
     let id = document.getElementById("userid").value;
     mytoken = document.cookie
     mytoken = mytoken.substring(6)
@@ -129,9 +130,14 @@ function login()
 
 function register()
 {
-    if (document.getElementById("register_email").value == "" || document.getElementById("register_firstName").value == "" ||
-    document.getElementById("register_lastName").value == "" || document.getElementById("register_password").value == "" ||
-    document.getElementById("register_adress").value == "" || document.getElementById("register_phonenumber").value == "") {
+    /*
+     document.getElementById("register_firstName").value == "" ||
+    document.getElementById("register_lastName").value == "" || 
+    document.getElementById("register_adress").value == "" || 
+    document.getElementById("register_phonenumber").value == ""
+    */
+    if (document.getElementById("register_email").value == "" || document.getElementById("register_password").value == ""
+    || document.getElementById("register_username").value == "") {
         document.getElementById("register_check").style.color = "red";
         document.getElementById("register_check").innerHTML = "veuillez remplir tous les champs";
         setTimeout(() => {
@@ -143,12 +149,13 @@ function register()
     let jsondata = `
     {
         "email": "${document.getElementById("register_email").value}",
-        "firstName": "${document.getElementById("register_firstName").value}",
-        "lastName": "${document.getElementById("register_lastName").value}",
-        "password": "${document.getElementById("register_password").value}",
-        "adress": "${document.getElementById("register_adress").value}",
-        "phonenumber": "${document.getElementById("register_phonenumber").value}"
+        "username": "${document.getElementById("register_username").value}",
+        "password": "${document.getElementById("register_password").value}"
     }`;
+//    "firstName": "${document.getElementById("register_firstName").value}",
+//    "lastName": "${document.getElementById("register_lastName").value}",
+//    "adress": "${document.getElementById("register_adress").value}",
+//    "phonenumber": "${document.getElementById("register_phonenumber").value}"
     $.ajax({
         type: 'POST',
         method: 'POST',

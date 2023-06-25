@@ -36,7 +36,7 @@ $(document).ready(async function () {
           <li style="margin-left: -450px"><button onclick="switch_to_login()">Login</button></li>
           <li><button onclick="switch_to_register()">Register</button></li>
           `
-        } else if (response.data.name != undefined && response.status == "loggedin") {
+        } else if (response.data.username != undefined && response.status == "loggedin") {
             document.getElementById("navbar").style.marginBottom = "10px";
             var first_dropdown = "";
             if (window.location.pathname == "/")
@@ -45,7 +45,7 @@ $(document).ready(async function () {
                 first_dropdown = `<a href="/">Menu</a>`
             document.getElementById("navbar").style.marginTop = "30px";
             html += `
-          <li style="margin-left: -525px;margin-right: 25px">Bonjour <b>${response.data.name}</b></li>
+          <li style="margin-left: -525px;margin-right: 25px">Bonjour <b>${response.data.username}</b></li>
           <li class="dropdown">
             <a>Menu</a>
             <div class="dropdown-menu">
