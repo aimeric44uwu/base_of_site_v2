@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-var hour = 3600000;
+const ten_min = 600000;
+const five_min = 300000;
+const datenow = Date.now;
 
 
 tictactoeroomSchema = new Schema( {
@@ -37,20 +39,97 @@ tictactoeroomSchema = new Schema( {
     },
     moves : {
         type: Array,
+        default: {
+            11: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            12: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            13: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            21: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            22: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            23: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            31: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            32: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ],
+            33: [
+                {
+                    played : false,
+                    player : "",
+                    sign: "",
+                }
+            ]
+
+        }
     },
     ispublic : {
         type: Boolean,
     },
+    isfinished : {
+        type: Boolean,
+        default: false,
+    },
+    winnerid : {
+        type: String,
+    },
     roompassword : {
         type: String,
     },
+    timeout : {
+        type: Date,
+        default: datenow + five_min
+    },
     expire: {
 		type: Date,
-		default: Date.now + hour
+		default: datenow + ten_min
     },
 	createdAt: {
 		type: Date,
-		default: Date.now
+		default: datenow
 	}
 }),
 
